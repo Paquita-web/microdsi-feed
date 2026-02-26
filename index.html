@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MicroDSI Feed (M2-S10)</title>
+    <title>MicroDSI Feed - Micro-lecciones (M2-S10)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .hidden { display: none; }
         .active-tab { border-bottom: 3px solid #3b82f6; color: #1d4ed8; font-weight: bold; }
         .step-card { background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        textarea::placeholder { color: #cbd5e1; font-style: italic; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans leading-relaxed">
@@ -16,15 +17,15 @@
     <!-- Navegación -->
     <nav class="bg-white border-b sticky top-0 z-50">
         <div class="max-w-5xl mx-auto px-6 flex justify-between items-center h-16">
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center space-x-2 cursor-pointer" onclick="showSection('inicio')">
                 <div class="bg-blue-600 text-white font-black px-2 py-1 rounded text-xs">M2-S10</div>
-                <span class="font-bold tracking-tight">MicroDSI <span class="text-blue-600">Feed</span></span>
+                <span class="font-bold tracking-tight italic">MicroDSI <span class="text-blue-600 tracking-normal">Feed</span></span>
             </div>
-            <div class="flex space-x-6 text-sm font-medium">
-                <button onclick="showSection('inicio')" id="btn-inicio" class="nav-link py-5">Inicio</button>
-                <button onclick="showSection('feed')" id="btn-feed" class="nav-link py-5">Feed</button>
-                <button onclick="showSection('pistas')" id="btn-pistas" class="nav-link py-5">Pistas</button>
-                <button onclick="showSection('lab')" id="btn-lab" class="nav-link py-5">Laboratorio</button>
+            <div class="flex space-x-4 md:space-x-6 text-sm font-medium">
+                <button onclick="showSection('inicio')" id="btn-inicio" class="nav-link py-5 transition-all">Inicio</button>
+                <button onclick="showSection('feed')" id="btn-feed" class="nav-link py-5 transition-all">Feed</button>
+                <button onclick="showSection('pistas')" id="btn-pistas" class="nav-link py-5 transition-all">Pistas</button>
+                <button onclick="showSection('lab')" id="btn-lab" class="nav-link py-5 transition-all">Laboratorio</button>
             </div>
         </div>
     </nav>
@@ -36,157 +37,149 @@
             <p class="text-gray-500 text-sm">Versión 1 · Febrero 2026</p>
         </div>
         <div class="bg-white border border-blue-200 px-4 py-2 rounded-full flex items-center shadow-sm">
-            <span class="text-xs font-bold text-blue-500 mr-2 uppercase tracking-widest">Track:</span>
+            <span class="text-xs font-bold text-blue-500 mr-2 uppercase tracking-widest">Track Actual:</span>
             <select id="track" onchange="cambiarTrack()" class="font-bold text-blue-700 outline-none bg-transparent cursor-pointer">
                 <option value="ITSM Triage">ITSM Triage</option>
-                <option value="HR">HR (Recursos Humanos)</option>
+                <option value="HR">HR (Human Resources)</option>
                 <option value="Procurement">Procurement (Compras)</option>
             </select>
         </div>
     </header>
 
     <!-- SECCIÓN: INICIO -->
-    <main id="inicio" class="max-w-4xl mx-auto px-6 py-10">
-        <div class="bg-white border-2 border-blue-600 rounded-3xl p-10 shadow-lg">
-            <h2 class="text-4xl font-black mb-6">¿Qué proceso deberíamos mejorar primero?</h2>
-            <p class="text-xl text-gray-600 mb-8">Elegiremos 1 proceso ganador usando un método estructurado para que el rediseño tenga sentido y límites.</p>
+    <main id="inicio" class="max-w-4xl mx-auto px-6 py-4">
+        <div class="bg-white border-2 border-blue-600 rounded-3xl p-8 md:p-12 shadow-lg">
+            <span class="text-blue-600 font-bold uppercase tracking-widest text-xs">Objetivo Final</span>
+            <h2 class="text-4xl font-black mb-6 leading-tight">Elegir 1 proceso ganador y definirlo con método.</h2>
             <div class="grid md:grid-cols-3 gap-6 mb-10">
-                <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
-                    <span class="text-xs font-bold text-blue-600 uppercase">Fase 1</span>
-                    <h3 class="font-bold">Inventario</h3>
-                    <p class="text-xs text-gray-500 mt-1">Elegir nivel L1 (Verbo + Objeto)</p>
+                <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100">
+                    <h3 class="font-bold text-blue-800">1. Inventario</h3>
+                    <p class="text-xs text-blue-600/70 mt-1 italic">Mapeo L1 (Verbo + Objeto)</p>
                 </div>
-                <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
-                    <span class="text-xs font-bold text-blue-600 uppercase">Fase 2</span>
-                    <h3 class="font-bold">Priorización</h3>
-                    <p class="text-xs text-gray-500 mt-1">Top 5 con Impacto y Esfuerzo</p>
+                <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100">
+                    <h3 class="font-bold text-blue-800">2. Priorización</h3>
+                    <p class="text-xs text-blue-600/70 mt-1 italic">Top 5 (Impacto/Esfuerzo)</p>
                 </div>
-                <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
-                    <span class="text-xs font-bold text-blue-600 uppercase">Fase 3</span>
-                    <h3 class="font-bold">SIPOC</h3>
-                    <p class="text-xs text-gray-500 mt-1">Ficha del proceso ganador</p>
+                <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100">
+                    <h3 class="font-bold text-blue-800">3. SIPOC</h3>
+                    <p class="text-xs text-blue-600/70 mt-1 italic">Ficha del ganador</p>
                 </div>
             </div>
-            <button onclick="showSection('feed')" class="bg-blue-600 text-white px-8 py-4 rounded-full font-black text-lg hover:bg-blue-700 transition transform hover:-translate-y-1 shadow-xl">COMENZAR FEED →</button>
+            <div class="flex flex-col md:flex-row items-center gap-4">
+                <button onclick="showSection('feed')" class="w-full md:w-auto bg-blue-600 text-white px-10 py-4 rounded-full font-black text-lg hover:bg-blue-700 transition transform hover:scale-105 shadow-xl">COMENZAR FEED →</button>
+                <p class="text-xs text-gray-400 font-medium italic">Tiempo recomendado: 30-40 min</p>
+            </div>
         </div>
     </main>
 
     <!-- SECCIÓN: FEED -->
     <main id="feed" class="max-w-3xl mx-auto px-6 py-10 hidden">
-        <h2 class="text-3xl font-black mb-6 italic">Feed (Micro-pedazos)</h2>
-        <div class="space-y-6">
-            <div class="step-card">
-                <h3 class="font-black text-blue-600 uppercase text-xs tracking-widest mb-1">Concepto</h3>
-                <h4 class="text-xl font-bold mb-3 italic">El "Zoom" del Proceso (L0, L1, L2)</h4>
-                <p class="text-gray-600 mb-4">No te pierdas: Hoy hacemos <b>Inventario en L1</b> (catálogo) + un <b>L2 mental</b> del ganador. No toques manuales todavía.</p>
-                <button onclick="marcar(this)" class="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg font-bold text-sm hover:bg-blue-100 transition">HECHO</button>
-            </div>
-            <div class="step-card">
-                <h3 class="font-black text-blue-600 uppercase text-xs tracking-widest mb-1">Definición</h3>
-                <h4 class="text-xl font-bold mb-3 italic text-gray-700">¿Qué es un Proceso?</h4>
-                <p class="text-gray-600 mb-4 italic">Serie de pasos repetibles que convierten entradas en salidas.</p>
-                <ul class="text-sm bg-gray-50 p-4 rounded-lg space-y-2 border border-dashed border-gray-300">
-                    <li>🚩 <b>Trigger:</b> ¿Qué lo inicia?</li>
-                    <li>📦 <b>Output:</b> ¿Qué sale al final?</li>
-                    <li>👤 <b>Customer:</b> ¿Quién lo recibe?</li>
-                </ul>
-                <button onclick="marcar(this)" class="mt-4 bg-gray-100 text-gray-600 px-4 py-2 rounded-lg font-bold text-sm hover:bg-blue-100 transition">HECHO</button>
-            </div>
+        <h2 class="text-3xl font-black mb-6 italic tracking-tighter uppercase">Feed (Micro-Conceptos)</h2>
+        <div class="space-y-6" id="feed-container">
+            <!-- Dinámico por JS -->
         </div>
-        <div class="mt-10 text-center">
-            <button onclick="showSection('pistas')" class="text-blue-600 font-black hover:underline">Siguiente: Pistas (Caso Guiado) →</button>
+        <div class="mt-12 p-6 bg-blue-900 rounded-2xl text-white flex justify-between items-center shadow-lg">
+            <div>
+                <p class="font-bold text-xl tracking-tight">¿Listo para las pistas?</p>
+                <p class="text-blue-300 text-xs italic">Ya entiendes la diferencia entre L0, L1 y L2.</p>
+            </div>
+            <button onclick="showSection('pistas')" class="bg-white text-blue-900 font-black px-6 py-2 rounded-full hover:bg-blue-50 transition">SIGUIENTE →</button>
         </div>
     </main>
 
     <!-- SECCIÓN: PISTAS -->
     <main id="pistas" class="max-w-3xl mx-auto px-6 py-10 hidden">
-        <h2 class="text-3xl font-black mb-2 italic">Pistas</h2>
-        <p class="text-gray-500 mb-8 italic">Define dolores y restricciones en 1-3 líneas.</p>
+        <h2 class="text-3xl font-black mb-2 italic tracking-tighter uppercase">Pistas</h2>
+        <p class="text-gray-500 mb-8 italic">Define dolores y restricciones. Regla: 1 a 3 líneas.</p>
         
-        <div class="space-y-8">
-            <div class="bg-white p-6 rounded-2xl border-2 border-dashed border-gray-200">
+        <div class="space-y-6">
+            <div class="step-card !border-dashed !border-2">
                 <p class="font-bold text-lg mb-3">1. ¿Qué proceso "duele" más hoy y por qué?</p>
-                <textarea id="p-dolores" class="w-full border p-4 rounded-xl bg-gray-50 outline-none focus:border-blue-500" rows="3" placeholder="Ej: Las altas de proveedores tardan 20 días por falta de validación..."></textarea>
+                <textarea id="p-dolores" oninput="saveData()" class="w-full border p-4 rounded-xl bg-gray-50 outline-none focus:border-blue-500 transition shadow-inner" rows="3" placeholder="Ej: Las altas de proveedores tienen mucho retrabajo por datos incompletos..."></textarea>
             </div>
-            <div class="bg-white p-6 rounded-2xl border-2 border-dashed border-gray-200">
-                <p class="font-bold text-lg mb-3">2. Identifica restricciones (PII, Legal, TI)</p>
-                <textarea id="p-rest" class="w-full border p-4 rounded-xl bg-gray-50 outline-none focus:border-blue-500" rows="2" placeholder="Ej: El sistema SAP solo se actualiza una vez al día..."></textarea>
+            <div class="step-card !border-dashed !border-2">
+                <p class="font-bold text-lg mb-3">2. Identifica restricciones (Compliance, TI, PII)</p>
+                <textarea id="p-rest" oninput="saveData()" class="w-full border p-4 rounded-xl bg-gray-50 outline-none focus:border-blue-500 transition shadow-inner" rows="2" placeholder="Ej: Por auditoría, el paso de aprobación debe ser por un nivel Manager..."></textarea>
             </div>
         </div>
-        <button onclick="showSection('lab')" class="w-full mt-10 bg-slate-900 text-white py-5 rounded-2xl font-black text-xl hover:bg-black transition">ABRIR LABORATORIO 🧪</button>
+        <button onclick="showSection('lab')" class="w-full mt-10 bg-slate-900 text-white py-5 rounded-2xl font-black text-xl hover:bg-black transition-all shadow-xl">ABRIR LABORATORIO 🧪</button>
     </main>
 
     <!-- SECCIÓN: LAB -->
     <main id="lab" class="max-w-5xl mx-auto px-6 py-10 hidden pb-32">
-        <h2 class="text-3xl font-black mb-10 italic uppercase tracking-tighter">Entregable Final</h2>
+        <h2 class="text-4xl font-black mb-10 italic uppercase tracking-tighter text-center">Laboratorio de Diseño</h2>
 
         <!-- Caja 1: Inventario -->
-        <div class="mb-12">
+        <div class="mb-14">
             <div class="flex items-center gap-3 mb-4">
                 <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">1</span>
-                <h3 class="text-xl font-black">INVENTARIO DE PROCESOS (L1)</h3>
+                <h3 class="text-xl font-black italic uppercase">Inventario L1 (Catálogo)</h3>
             </div>
-            <textarea id="inv-text" class="w-full border-2 border-blue-50 p-6 rounded-2xl font-mono text-sm h-48 focus:border-blue-400 outline-none shadow-inner" placeholder="Escribe 10-15 procesos (Verbo + Objeto)..."></textarea>
+            <p class="text-xs text-gray-500 mb-3 ml-11">Escribe uno por línea. Ejemplo: <b>Gestionar</b> [Objeto].</p>
+            <textarea id="inv-text" oninput="saveData()" class="w-full border-2 border-blue-50 p-6 rounded-2xl font-mono text-sm h-48 focus:border-blue-400 outline-none shadow-inner" placeholder="1. Gestionar facturas&#10;2. Validar accesos..."></textarea>
         </div>
 
         <!-- Caja 2: Priorización -->
-        <div class="mb-12">
+        <div class="mb-14">
             <div class="flex items-center gap-3 mb-4">
                 <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">2</span>
-                <h3 class="text-xl font-black">PRIORIZACIÓN (TOP 5)</h3>
+                <h3 class="text-xl font-black italic uppercase">Priorización (Top 5)</h3>
             </div>
-            <div class="overflow-x-auto border rounded-2xl bg-white shadow-sm">
+            <div class="overflow-hidden border border-gray-100 rounded-3xl bg-white shadow-xl">
                 <table class="w-full text-left border-collapse">
-                    <thead class="bg-gray-50 text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                    <thead class="bg-slate-900 text-[10px] font-bold uppercase tracking-widest text-slate-400">
                         <tr>
-                            <th class="p-4 border-b">Proceso</th>
-                            <th class="p-4 border-b text-center">Imp (1-5)</th>
-                            <th class="p-4 border-b text-center">Esf (1-5)</th>
-                            <th class="p-4 border-b text-center">Riesgo (1-5)</th>
-                            <th class="p-4 border-b text-center">Score</th>
+                            <th class="p-5">Proceso Candidato</th>
+                            <th class="p-5 text-center">Impacto</th>
+                            <th class="p-5 text-center">Esfuerzo</th>
+                            <th class="p-5 text-center">Riesgo</th>
+                            <th class="p-5 text-center bg-blue-900 text-white">Score</th>
                         </tr>
                     </thead>
-                    <tbody id="tablaLab"></tbody>
+                    <tbody id="tablaLab">
+                        <!-- JS generará las filas aquí -->
+                    </tbody>
                 </table>
             </div>
         </div>
 
         <!-- Caja 3: SIPOC -->
-        <div class="mb-12">
+        <div class="mb-14">
             <div class="flex items-center gap-3 mb-6">
                 <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">3</span>
-                <h3 class="text-xl font-black">SIPOC: FICHA GANADORA</h3>
+                <h3 class="text-xl font-black italic uppercase">SIPOC: Ficha del Ganador</h3>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-                <div class="bg-slate-100 p-4 rounded-xl border-t-4 border-slate-500">
-                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Supplier</label>
-                    <textarea id="sip-s" class="w-full bg-transparent mt-2 outline-none h-24 text-sm" placeholder="¿Quién lo inicia?"></textarea>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-3 bg-white p-4 rounded-3xl border shadow-sm">
+                <div class="p-4 bg-slate-50 rounded-2xl">
+                    <label class="text-[10px] font-black text-slate-400 uppercase">Supplier</label>
+                    <textarea id="sip-s" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-24 text-sm" placeholder="¿Quién lo inicia?"></textarea>
                 </div>
-                <div class="bg-slate-100 p-4 rounded-xl border-t-4 border-slate-500">
-                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Input</label>
-                    <textarea id="sip-i" class="w-full bg-transparent mt-2 outline-none h-24 text-sm" placeholder="¿Qué se necesita?"></textarea>
+                <div class="p-4 bg-slate-50 rounded-2xl">
+                    <label class="text-[10px] font-black text-slate-400 uppercase">Input</label>
+                    <textarea id="sip-i" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-24 text-sm" placeholder="¿Qué se recibe?"></textarea>
                 </div>
-                <div class="bg-blue-600 p-4 rounded-xl border-t-4 border-blue-400 text-white shadow-xl scale-105">
-                    <label class="text-[10px] font-black text-blue-200 uppercase tracking-widest">Process (Winner)</label>
-                    <textarea id="sip-p" class="w-full bg-transparent mt-2 outline-none h-24 text-sm font-bold placeholder-blue-300" placeholder="VERBO + OBJETO"></textarea>
+                <div class="p-4 bg-blue-600 rounded-2xl text-white shadow-lg ring-4 ring-blue-100 scale-105">
+                    <label class="text-[10px] font-black text-blue-200 uppercase">Proceso Ganador</label>
+                    <textarea id="sip-p" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-24 text-sm font-bold placeholder-blue-300" placeholder="VERBO + OBJETO"></textarea>
                 </div>
-                <div class="bg-slate-100 p-4 rounded-xl border-t-4 border-slate-500">
-                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Output</label>
-                    <textarea id="sip-o" class="w-full bg-transparent mt-2 outline-none h-24 text-sm" placeholder="¿Qué entregamos?"></textarea>
+                <div class="p-4 bg-slate-50 rounded-2xl">
+                    <label class="text-[10px] font-black text-slate-400 uppercase">Output</label>
+                    <textarea id="sip-o" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-24 text-sm" placeholder="¿Qué sale?"></textarea>
                 </div>
-                <div class="bg-slate-100 p-4 rounded-xl border-t-4 border-slate-500">
-                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Customer</label>
-                    <textarea id="sip-c" class="w-full bg-transparent mt-2 outline-none h-24 text-sm" placeholder="¿Para quién es?"></textarea>
+                <div class="p-4 bg-slate-50 rounded-2xl">
+                    <label class="text-[10px] font-black text-slate-400 uppercase">Customer</label>
+                    <textarea id="sip-c" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-24 text-sm" placeholder="¿Quién lo recibe?"></textarea>
                 </div>
             </div>
         </div>
 
-        <div class="text-center">
-            <button onclick="exportar()" class="bg-green-600 text-white px-12 py-5 rounded-full font-black text-xl shadow-2xl hover:bg-green-700 transition transform hover:scale-105 active:scale-95">EXPORTAR .MD 📄</button>
-        </div>
+        <button onclick="exportarMD()" class="fixed bottom-8 left-1/2 -translate-x-1/2 md:translate-x-0 md:right-10 bg-green-600 text-white px-12 py-5 rounded-full font-black text-xl shadow-2xl hover:bg-green-700 transition transform hover:scale-110 active:scale-95 flex items-center gap-3">
+            <span>⬇️</span> EXPORTAR ENTREGA .MD
+        </button>
     </main>
 
     <script>
+        // Lógica de navegación
         function showSection(id) {
             document.querySelectorAll('main').forEach(m => m.classList.add('hidden'));
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-tab'));
@@ -195,67 +188,168 @@
             window.scrollTo(0,0);
         }
 
+        // Marcar tarjetas leídas
         function marcar(btn) {
-            btn.innerHTML = "✅ HECHO";
-            btn.classList.add('bg-blue-100', 'text-blue-700');
+            btn.innerHTML = "✅ ENTENDIDO";
+            btn.classList.replace('bg-blue-600', 'bg-green-100');
+            btn.classList.replace('text-white', 'text-green-700');
+            btn.classList.add('border', 'border-green-200');
         }
 
+        // Datos dinámicos por Track
+        const trackData = {
+            'ITSM Triage': [
+                { titulo: 'L1: Gestión de Incidencias', desc: 'Flujo para restaurar el servicio lo antes posible.' },
+                { titulo: 'L2: Incidencia Mayor', desc: 'Variante para caídas críticas de infraestructura.' }
+            ],
+            'HR': [
+                { titulo: 'L1: Gestión de Onboarding', desc: 'Proceso de incorporación de nuevos talentos.' },
+                { titulo: 'L2: Onboarding Remoto', desc: 'Variante específica para empleados fuera de oficina.' }
+            ],
+            'Procurement': [
+                { titulo: 'L1: Selección Proveedores', desc: 'Pasos para elegir al mejor partner comercial.' },
+                { titulo: 'L2: Compra Directa', desc: 'Variante rápida para gastos menores bajo límite.' }
+            ]
+        };
+
+        function cambiarTrack() {
+            const t = document.getElementById('track').value;
+            localStorage.setItem('microdsi_track', t);
+            renderFeed();
+        }
+
+        function renderFeed() {
+            const track = document.getElementById('track').value;
+            const container = document.getElementById('feed-container');
+            const data = trackData[track] || trackData['ITSM Triage'];
+            
+            container.innerHTML = `
+                <div class="step-card">
+                    <h3 class="font-black text-blue-600 uppercase text-[10px] tracking-widest mb-1">Definición L1 vs L2</h3>
+                    <h4 class="text-xl font-bold mb-3 italic">No te pierdas en el "Zoom"</h4>
+                    <p class="text-gray-600 text-sm mb-4">Hoy hacemos el inventario en <b>L1</b> (Catálogo). Cuando elijas al ganador, piensa mentalmente en su <b>L2</b> (un caso real, no genérico).</p>
+                    <button onclick="marcar(this)" class="bg-blue-600 text-white px-5 py-2 rounded-lg font-black text-xs transition">HECHO</button>
+                </div>
+                <div class="step-card">
+                    <h3 class="font-black text-blue-600 uppercase text-[10px] tracking-widest mb-1">Ejemplo Track: ${track}</h3>
+                    <h4 class="text-xl font-bold mb-3 italic">${data[0].titulo}</h4>
+                    <p class="text-gray-600 text-sm mb-4">${data[0].desc}</p>
+                    <button onclick="marcar(this)" class="bg-blue-600 text-white px-5 py-2 rounded-lg font-black text-xs transition">HECHO</button>
+                </div>
+                <div class="step-card">
+                    <h3 class="font-black text-blue-600 uppercase text-[10px] tracking-widest mb-1">Test Proceso</h3>
+                    <h4 class="text-xl font-bold mb-3 italic">¿Es realmente un proceso?</h4>
+                    <p class="text-gray-600 text-sm mb-4">Si no tiene un <b>Trigger</b> claro, un <b>Output</b> medible y un <b>Customer</b> que lo reciba, es "humo".</p>
+                    <button onclick="marcar(this)" class="bg-blue-600 text-white px-5 py-2 rounded-lg font-black text-xs transition">HECHO</button>
+                </div>
+            `;
+        }
+
+        // Generar filas de tabla
         const tabla = document.getElementById('tablaLab');
         for (let i = 1; i <= 5; i++) {
             tabla.innerHTML += `
-                <tr class="hover:bg-blue-50/50">
-                    <td class="p-3 border-b"><input type="text" id="row-n-${i}" class="w-full p-2 bg-transparent outline-none font-bold italic" placeholder="Proceso ${i}"></td>
-                    <td class="p-3 border-b"><input type="number" id="row-i-${i}" oninput="calc(${i})" class="w-full text-center outline-none bg-transparent" min="1" max="5"></td>
-                    <td class="p-3 border-b"><input type="number" id="row-e-${i}" oninput="calc(${i})" class="w-full text-center outline-none bg-transparent" min="1" max="5"></td>
-                    <td class="p-3 border-b"><input type="number" id="row-r-${i}" oninput="calc(${i})" class="w-full text-center outline-none bg-transparent" min="1" max="5"></td>
-                    <td class="p-3 border-b text-center font-black text-blue-600" id="row-s-${i}">0</td>
+                <tr class="hover:bg-blue-50/30 transition">
+                    <td class="p-2 border-b"><input type="text" id="row-n-${i}" oninput="saveData()" class="w-full p-3 bg-transparent outline-none font-bold text-sm italic" placeholder="Nombre proceso ${i}..."></td>
+                    <td class="p-2 border-b"><input type="number" id="row-i-${i}" oninput="calc(${i})" class="w-full text-center outline-none bg-transparent" min="1" max="5" placeholder="0"></td>
+                    <td class="p-2 border-b"><input type="number" id="row-e-${i}" oninput="calc(${i})" class="w-full text-center outline-none bg-transparent" min="1" max="5" placeholder="0"></td>
+                    <td class="p-2 border-b"><input type="number" id="row-r-${i}" oninput="calc(${i})" class="w-full text-center outline-none bg-transparent" min="1" max="5" placeholder="0"></td>
+                    <td class="p-2 border-b text-center font-black text-blue-600 text-lg bg-blue-50/50" id="row-s-${i}">0</td>
                 </tr>
             `;
         }
 
+        // Cálculo de Score: (Impacto x 2) + Riesgo - Esfuerzo
         function calc(i) {
             const imp = parseInt(document.getElementById(`row-i-${i}`).value) || 0;
             const esf = parseInt(document.getElementById(`row-e-${i}`).value) || 0;
             const rie = parseInt(document.getElementById(`row-r-${i}`).value) || 0;
-            const score = (imp * 2) - esf + rie;
+            const score = (imp * 2) + rie - esf;
             document.getElementById(`row-s-${i}`).innerText = score;
+            saveData();
         }
 
-        function cambiarTrack() {
-            const t = document.getElementById('track').value;
-            alert('Track seleccionado: ' + t);
+        // Persistencia de datos
+        function saveData() {
+            const fields = ['p-dolores', 'p-rest', 'inv-text', 'sip-s', 'sip-i', 'sip-p', 'sip-o', 'sip-c'];
+            const data = {};
+            fields.forEach(f => data[f] = document.getElementById(f).value);
+            
+            const tablaData = [];
+            for(let i=1; i<=5; i++) {
+                tablaData.push({
+                    n: document.getElementById(`row-n-${i}`).value,
+                    i: document.getElementById(`row-i-${i}`).value,
+                    e: document.getElementById(`row-e-${i}`).value,
+                    r: document.getElementById(`row-r-${i}`).value
+                });
+            }
+            data.tabla = tablaData;
+            localStorage.setItem('microdsi_data', JSON.stringify(data));
         }
 
-        function exportar() {
-            const t = document.getElementById('track').value;
+        function loadData() {
+            const saved = localStorage.getItem('microdsi_data');
+            const track = localStorage.getItem('microdsi_track');
+            if(track) document.getElementById('track').value = track;
+            
+            if(saved) {
+                const data = JSON.parse(saved);
+                Object.keys(data).forEach(k => {
+                    if(k !== 'tabla') document.getElementById(k).value = data[k];
+                });
+                data.tabla.forEach((row, index) => {
+                    const i = index + 1;
+                    document.getElementById(`row-n-${i}`).value = row.n;
+                    document.getElementById(`row-i-${i}`).value = row.i;
+                    document.getElementById(`row-e-${i}`).value = row.e;
+                    document.getElementById(`row-r-${i}`).value = row.r;
+                    calc(i);
+                });
+            }
+            renderFeed();
+        }
+
+        // Exportación a Markdown
+        function exportarMD() {
+            const track = document.getElementById('track').value;
             const inv = document.getElementById('inv-text').value;
             const dolores = document.getElementById('p-dolores').value;
             
-            let prior = "| Proceso | Impacto | Esfuerzo | Riesgo | Score |\n|---|---|---|---|---|\n";
+            let priorTable = "| Proceso | Impacto | Esfuerzo | Riesgo | Score |\n|---|---|---|---|---|\n";
             for(let i=1; i<=5; i++) {
-                const name = document.getElementById(`row-n-${i}`).value;
+                const n = document.getElementById(`row-n-${i}`).value;
                 const sc = document.getElementById(`row-s-${i}`).innerText;
-                if(name) prior += `| ${name} | ${document.getElementById(`row-i-${i}`).value} | ${document.getElementById(`row-e-${i}`).value} | ${document.getElementById(`row-r-${i}`).value} | ${sc} |\n`;
+                if(n) priorTable += `| ${n} | ${document.getElementById(`row-i-${i}`).value} | ${document.getElementById(`row-e-${i}`).value} | ${document.getElementById(`row-r-${i}`).value} | **${sc}** |\n`;
             }
 
-            const md = `# MicroDSI Feed (M2-S10)\n**Track:** ${t}\n**Fecha:** ${new Date().toLocaleDateString()}\n\n` +
-                       `## Dolores y Restricciones\n${dolores}\n\n` +
-                       `## 1. Inventario (L1)\n\`\`\`\n${inv}\n\`\`\`\n\n` +
-                       `## 2. Priorización Top 5\n${prior}\n\n` +
-                       `## 3. SIPOC Ganador\n` +
-                       `- **S:** ${document.getElementById('sip-s').value}\n` +
-                       `- **I:** ${document.getElementById('sip-i').value}\n` +
-                       `- **P:** ${document.getElementById('sip-p').value}\n` +
-                       `- **O:** ${document.getElementById('sip-o').value}\n` +
-                       `- **C:** ${document.getElementById('sip-c').value}\n`;
+            const mdContent = `# Entrega Micro-lecciones (M2-S10)\n` +
+                `**Track:** ${track}\n` +
+                `**Fecha:** ${new Date().toLocaleDateString()}\n\n` +
+                `## 0. Diagnóstico (Pistas)\n` +
+                `**Dolores:** ${dolores}\n` +
+                `**Restricciones:** ${document.getElementById('p-rest').value}\n\n` +
+                `## 1. Inventario (L1)\n\`\`\`text\n${inv}\n\`\`\`\n\n` +
+                `## 2. Priorización (Top 5)\n${priorTable}\n\n` +
+                `## 3. SIPOC (Proceso Ganador)\n` +
+                `| Elemento | Descripción |\n|---|---|\n` +
+                `| **Supplier** | ${document.getElementById('sip-s').value} |\n` +
+                `| **Input** | ${document.getElementById('sip-i').value} |\n` +
+                `| **Process** | **${document.getElementById('sip-p').value}** |\n` +
+                `| **Output** | ${document.getElementById('sip-o').value} |\n` +
+                `| **Customer** | ${document.getElementById('sip-c').value} |\n\n` +
+                `--- \nGenerado por MicroDSI Feed v1.0`;
 
-            const blob = new Blob([md], { type: 'text/markdown' });
+            const blob = new Blob([mdContent], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = `entrega-${t.toLowerCase().replace(' ', '-')}.md`;
+            a.href = url;
+            a.download = `entrega-${track.toLowerCase().replace(/ /g, '-')}.md`;
             a.click();
         }
 
+        // Inicialización
+        window.onload = loadData;
         showSection('inicio');
     </script>
 </body>
