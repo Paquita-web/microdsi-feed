@@ -1,185 +1,170 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MicroDSI Feed - Micro-lecciones (M2-S10)</title>
+    <title>Herramienta de Mejora de Procesos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .hidden { display: none; }
         .active-tab { border-bottom: 3px solid #3b82f6; color: #1d4ed8; font-weight: bold; }
-        .step-card { background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        textarea::placeholder { color: #cbd5e1; font-style: italic; }
+        .card { background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; border: 1px solid #e5e7eb; shadow: sm; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans leading-relaxed">
+<body class="bg-slate-50 text-slate-900 font-sans leading-relaxed">
 
-    <!-- Navegación -->
+    <!-- Menú Principal -->
     <nav class="bg-white border-b sticky top-0 z-50">
         <div class="max-w-5xl mx-auto px-6 flex justify-between items-center h-16">
-            <div class="flex items-center space-x-2 cursor-pointer" onclick="showSection('inicio')">
-                <div class="bg-blue-600 text-white font-black px-2 py-1 rounded text-xs">M2-S10</div>
-                <span class="font-bold tracking-tight italic">MicroDSI <span class="text-blue-600 tracking-normal">Feed</span></span>
+            <div class="flex items-center space-x-2">
+                <span class="bg-blue-600 text-white font-bold px-2 py-1 rounded text-xs">M2-S10</span>
+                <span class="font-bold text-lg italic">MicroDSI</span>
             </div>
-            <div class="flex space-x-4 md:space-x-6 text-sm font-medium">
-                <button onclick="showSection('inicio')" id="btn-inicio" class="nav-link py-5 transition-all">Inicio</button>
-                <button onclick="showSection('feed')" id="btn-feed" class="nav-link py-5 transition-all">Feed</button>
-                <button onclick="showSection('pistas')" id="btn-pistas" class="nav-link py-5 transition-all">Pistas</button>
-                <button onclick="showSection('lab')" id="btn-lab" class="nav-link py-5 transition-all">Laboratorio</button>
+            <div class="flex space-x-6 text-sm font-medium">
+                <button onclick="showSection('inicio')" id="btn-inicio" class="nav-link py-5">Inicio</button>
+                <button onclick="showSection('feed')" id="btn-feed" class="nav-link py-5">Aprender</button>
+                <button onclick="showSection('pistas')" id="btn-pistas" class="nav-link py-5">Pistas</button>
+                <button onclick="showSection('lab')" id="btn-lab" class="nav-link py-5">Mi Trabajo</button>
             </div>
         </div>
     </nav>
 
-    <!-- Header / Selector de Track -->
-    <header class="max-w-5xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-            <h1 class="text-2xl font-black italic uppercase tracking-tighter">Guía Paso a Paso</h1>
-            <p class="text-gray-500 text-sm">Versión 1 · Febrero 2026</p>
-        </div>
-        <div class="bg-white border border-blue-200 px-4 py-2 rounded-full flex items-center shadow-sm">
-            <span class="text-xs font-bold text-blue-500 mr-2 uppercase tracking-widest">Track Actual:</span>
-            <select id="track" onchange="cambiarTrack()" class="font-bold text-blue-700 outline-none bg-transparent cursor-pointer">
-                <option value="ITSM Triage">ITSM Triage</option>
-                <option value="HR">HR (Human Resources)</option>
-                <option value="Procurement">Procurement (Compras)</option>
+    <!-- Selector de Tema -->
+    <header class="max-w-5xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-gray-500 text-sm">Guía Paso a Paso · Febrero 2026</p>
+        <div class="bg-white border border-blue-200 px-4 py-2 rounded-full shadow-sm">
+            <span class="text-xs font-bold text-blue-500 mr-2 uppercase">Tema:</span>
+            <select id="track" onchange="saveData()" class="font-bold text-blue-700 outline-none bg-transparent cursor-pointer">
+                <option value="ITSM">Tecnología (Soporte)</option>
+                <option value="HR">Recursos Humanos</option>
+                <option value="Procurement">Compras y Proveedores</option>
             </select>
         </div>
     </header>
 
     <!-- SECCIÓN: INICIO -->
-    <main id="inicio" class="max-w-4xl mx-auto px-6 py-4">
-        <div class="bg-white border-2 border-blue-600 rounded-3xl p-8 md:p-12 shadow-lg">
-            <span class="text-blue-600 font-bold uppercase tracking-widest text-xs">Objetivo Final</span>
-            <h2 class="text-4xl font-black mb-6 leading-tight">Elegir 1 proceso ganador y definirlo con método.</h2>
-            <div class="grid md:grid-cols-3 gap-6 mb-10">
-                <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100">
-                    <h3 class="font-bold text-blue-800">1. Inventario</h3>
-                    <p class="text-xs text-blue-600/70 mt-1 italic">Mapeo L1 (Verbo + Objeto)</p>
+    <main id="inicio" class="max-w-4xl mx-auto px-6 py-10">
+        <div class="bg-white border-2 border-blue-600 rounded-3xl p-10 shadow-lg text-center">
+            <h2 class="text-4xl font-black mb-4">¿Qué vamos a mejorar hoy?</h2>
+            <p class="text-xl text-gray-600 mb-8 italic text-center">"No elijas un problema al azar. Usa un método para encontrar el que más importa."</p>
+            <div class="grid md:grid-cols-3 gap-6 mb-10 text-left">
+                <div class="bg-blue-50 p-5 rounded-2xl">
+                    <h3 class="font-bold text-blue-800">1. Lista</h3>
+                    <p class="text-xs text-blue-600/70">Anotamos todas las tareas que hacemos.</p>
                 </div>
-                <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100">
-                    <h3 class="font-bold text-blue-800">2. Priorización</h3>
-                    <p class="text-xs text-blue-600/70 mt-1 italic">Top 5 (Impacto/Esfuerzo)</p>
+                <div class="bg-blue-50 p-5 rounded-2xl">
+                    <h3 class="font-bold text-blue-800">2. Puntos</h3>
+                    <p class="text-xs text-blue-600/70">Elegimos la más importante para arreglar.</p>
                 </div>
-                <div class="bg-blue-50 p-5 rounded-2xl border border-blue-100">
-                    <h3 class="font-bold text-blue-800">3. SIPOC</h3>
-                    <p class="text-xs text-blue-600/70 mt-1 italic">Ficha del ganador</p>
+                <div class="bg-blue-50 p-5 rounded-2xl">
+                    <h3 class="font-bold text-blue-800">3. Ficha</h3>
+                    <p class="text-xs text-blue-600/70">Definimos cómo empieza y cómo acaba.</p>
                 </div>
             </div>
-            <div class="flex flex-col md:flex-row items-center gap-4">
-                <button onclick="showSection('feed')" class="w-full md:w-auto bg-blue-600 text-white px-10 py-4 rounded-full font-black text-lg hover:bg-blue-700 transition transform hover:scale-105 shadow-xl">COMENZAR FEED →</button>
-                <p class="text-xs text-gray-400 font-medium italic">Tiempo recomendado: 30-40 min</p>
-            </div>
+            <button onclick="showSection('feed')" class="bg-blue-600 text-white px-10 py-4 rounded-full font-black text-lg hover:bg-blue-700 transition shadow-xl">EMPEZAR →</button>
         </div>
     </main>
 
-    <!-- SECCIÓN: FEED -->
+    <!-- SECCIÓN: APRENDER -->
     <main id="feed" class="max-w-3xl mx-auto px-6 py-10 hidden">
-        <h2 class="text-3xl font-black mb-6 italic tracking-tighter uppercase">Feed (Micro-Conceptos)</h2>
-        <div class="space-y-6" id="feed-container">
-            <!-- Dinámico por JS -->
-        </div>
-        <div class="mt-12 p-6 bg-blue-900 rounded-2xl text-white flex justify-between items-center shadow-lg">
-            <div>
-                <p class="font-bold text-xl tracking-tight">¿Listo para las pistas?</p>
-                <p class="text-blue-300 text-xs italic">Ya entiendes la diferencia entre L0, L1 y L2.</p>
+        <h2 class="text-3xl font-black mb-6 italic">Conceptos Básicos</h2>
+        <div class="space-y-4">
+            <div class="card border-l-4 border-l-blue-500">
+                <h4 class="font-bold text-lg">Regla de oro: Acción + Cosa</h4>
+                <p class="text-gray-600 text-sm">Para nombrar una tarea, usa siempre un verbo y un nombre. <br><b>Ejemplo:</b> "Resetear contraseña" en lugar de solo "Contraseña".</p>
             </div>
-            <button onclick="showSection('pistas')" class="bg-white text-blue-900 font-black px-6 py-2 rounded-full hover:bg-blue-50 transition">SIGUIENTE →</button>
+            <div class="card border-l-4 border-l-blue-500">
+                <h4 class="font-bold text-lg">¿Cómo saber si es una tarea real?</h4>
+                <p class="text-gray-600 text-sm italic">Debe tener tres cosas claras:</p>
+                <ul class="text-sm mt-2 list-disc ml-5">
+                    <li><b>¿Qué la inicia?</b> (Un email, una llamada, una fecha).</li>
+                    <li><b>¿Qué sale al final?</b> (Un documento, un acceso, un pago).</li>
+                    <li><b>¿Quién recibe el resultado?</b> (Un cliente, un jefe, un empleado).</li>
+                </ul>
+            </div>
         </div>
+        <button onclick="showSection('pistas')" class="w-full mt-8 bg-blue-600 text-white py-4 rounded-xl font-bold">Entendido, ir a Pistas →</button>
     </main>
 
     <!-- SECCIÓN: PISTAS -->
     <main id="pistas" class="max-w-3xl mx-auto px-6 py-10 hidden">
-        <h2 class="text-3xl font-black mb-2 italic tracking-tighter uppercase">Pistas</h2>
-        <p class="text-gray-500 mb-8 italic">Define dolores y restricciones. Regla: 1 a 3 líneas.</p>
-        
+        <h2 class="text-3xl font-black mb-6 italic">Pistas del Problema</h2>
         <div class="space-y-6">
-            <div class="step-card !border-dashed !border-2">
-                <p class="font-bold text-lg mb-3">1. ¿Qué proceso "duele" más hoy y por qué?</p>
-                <textarea id="p-dolores" oninput="saveData()" class="w-full border p-4 rounded-xl bg-gray-50 outline-none focus:border-blue-500 transition shadow-inner" rows="3" placeholder="Ej: Las altas de proveedores tienen mucho retrabajo por datos incompletos..."></textarea>
+            <div class="card shadow-md">
+                <p class="font-bold mb-2 italic">1. ¿Qué es lo que más falla hoy y por qué?</p>
+                <textarea id="p-dolores" oninput="saveData()" class="w-full border p-4 rounded-xl bg-slate-50 outline-none focus:border-blue-500" rows="3" placeholder="Ej: Las vacaciones se pierden porque llegan por email..."></textarea>
             </div>
-            <div class="step-card !border-dashed !border-2">
-                <p class="font-bold text-lg mb-3">2. Identifica restricciones (Compliance, TI, PII)</p>
-                <textarea id="p-rest" oninput="saveData()" class="w-full border p-4 rounded-xl bg-gray-50 outline-none focus:border-blue-500 transition shadow-inner" rows="2" placeholder="Ej: Por auditoría, el paso de aprobación debe ser por un nivel Manager..."></textarea>
+            <div class="card shadow-md">
+                <p class="font-bold mb-2 italic">2. ¿Qué normas o leyes debemos cumplir?</p>
+                <textarea id="p-rest" oninput="saveData()" class="w-full border p-4 rounded-xl bg-slate-50 outline-none focus:border-blue-500" rows="2" placeholder="Ej: Protección de datos, firmas del jefe, etc..."></textarea>
             </div>
         </div>
-        <button onclick="showSection('lab')" class="w-full mt-10 bg-slate-900 text-white py-5 rounded-2xl font-black text-xl hover:bg-black transition-all shadow-xl">ABRIR LABORATORIO 🧪</button>
+        <button onclick="showSection('lab')" class="w-full mt-8 bg-slate-900 text-white py-4 rounded-xl font-bold italic">ABRIR MI TRABAJO ✍️</button>
     </main>
 
-    <!-- SECCIÓN: LAB -->
+    <!-- SECCIÓN: MI TRABAJO (LAB) -->
     <main id="lab" class="max-w-5xl mx-auto px-6 py-10 hidden pb-32">
-        <h2 class="text-4xl font-black mb-10 italic uppercase tracking-tighter text-center">Laboratorio de Diseño</h2>
+        <h2 class="text-3xl font-black mb-10 italic uppercase text-center">Mi Proyecto de Mejora</h2>
 
-        <!-- Caja 1: Inventario -->
-        <div class="mb-14">
-            <div class="flex items-center gap-3 mb-4">
-                <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">1</span>
-                <h3 class="text-xl font-black italic uppercase">Inventario L1 (Catálogo)</h3>
-            </div>
-            <p class="text-xs text-gray-500 mb-3 ml-11">Escribe uno por línea. Ejemplo: <b>Gestionar</b> [Objeto].</p>
-            <textarea id="inv-text" oninput="saveData()" class="w-full border-2 border-blue-50 p-6 rounded-2xl font-mono text-sm h-48 focus:border-blue-400 outline-none shadow-inner" placeholder="1. Gestionar facturas&#10;2. Validar accesos..."></textarea>
+        <!-- Paso 1 -->
+        <div class="mb-12">
+            <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><span class="bg-blue-600 text-white w-6 h-6 rounded-full text-xs flex items-center justify-center">1</span> Lista de Actividades</h3>
+            <textarea id="inv-text" oninput="saveData()" class="w-full border-2 border-blue-50 p-6 rounded-2xl font-mono text-sm h-40 outline-none focus:border-blue-400" placeholder="1. Acción + Cosa..."></textarea>
         </div>
 
-        <!-- Caja 2: Priorización -->
-        <div class="mb-14">
-            <div class="flex items-center gap-3 mb-4">
-                <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">2</span>
-                <h3 class="text-xl font-black italic uppercase">Priorización (Top 5)</h3>
-            </div>
-            <div class="overflow-hidden border border-gray-100 rounded-3xl bg-white shadow-xl">
-                <table class="w-full text-left border-collapse">
-                    <thead class="bg-slate-900 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+        <!-- Paso 2 -->
+        <div class="mb-12">
+            <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><span class="bg-blue-600 text-white w-6 h-6 rounded-full text-xs flex items-center justify-center">2</span> Elegir la mejor para arreglar</h3>
+            <div class="overflow-hidden border rounded-2xl shadow-sm bg-white">
+                <table class="w-full text-left">
+                    <thead class="bg-slate-50 text-[10px] font-bold uppercase text-slate-400">
                         <tr>
-                            <th class="p-5">Proceso Candidato</th>
-                            <th class="p-5 text-center">Impacto</th>
-                            <th class="p-5 text-center">Esfuerzo</th>
-                            <th class="p-5 text-center">Riesgo</th>
-                            <th class="p-5 text-center bg-blue-900 text-white">Score</th>
+                            <th class="p-4">Nombre de la Actividad</th>
+                            <th class="p-4 text-center">Importancia</th>
+                            <th class="p-4 text-center">Dificultad</th>
+                            <th class="p-4 text-center">Urgencia</th>
+                            <th class="p-4 text-center bg-blue-600 text-white">Puntos</th>
                         </tr>
                     </thead>
-                    <tbody id="tablaLab">
-                        <!-- JS generará las filas aquí -->
-                    </tbody>
+                    <tbody id="tablaLab"></tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Caja 3: SIPOC -->
-        <div class="mb-14">
-            <div class="flex items-center gap-3 mb-6">
-                <span class="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">3</span>
-                <h3 class="text-xl font-black italic uppercase">SIPOC: Ficha del Ganador</h3>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-3 bg-white p-4 rounded-3xl border shadow-sm">
-                <div class="p-4 bg-slate-50 rounded-2xl">
-                    <label class="text-[10px] font-black text-slate-400 uppercase">Supplier</label>
-                    <textarea id="sip-s" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-24 text-sm" placeholder="¿Quién lo inicia?"></textarea>
+        <!-- Paso 3 -->
+        <div class="mb-12">
+            <h3 class="text-xl font-bold mb-6 flex items-center gap-2"><span class="bg-blue-600 text-white w-6 h-6 rounded-full text-xs flex items-center justify-center">3</span> Ficha de la actividad elegida (SIPOC)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-3 bg-white p-4 rounded-3xl border">
+                <div class="p-4 bg-slate-50 rounded-xl">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase">¿Quién inicia?</label>
+                    <textarea id="sip-s" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-20 text-sm" placeholder="Ej: El cliente..."></textarea>
                 </div>
-                <div class="p-4 bg-slate-50 rounded-2xl">
-                    <label class="text-[10px] font-black text-slate-400 uppercase">Input</label>
-                    <textarea id="sip-i" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-24 text-sm" placeholder="¿Qué se recibe?"></textarea>
+                <div class="p-4 bg-slate-50 rounded-xl">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase">¿Qué envía?</label>
+                    <textarea id="sip-i" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-20 text-sm" placeholder="Ej: Un formulario..."></textarea>
                 </div>
-                <div class="p-4 bg-blue-600 rounded-2xl text-white shadow-lg ring-4 ring-blue-100 scale-105">
-                    <label class="text-[10px] font-black text-blue-200 uppercase">Proceso Ganador</label>
-                    <textarea id="sip-p" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-24 text-sm font-bold placeholder-blue-300" placeholder="VERBO + OBJETO"></textarea>
+                <div class="p-4 bg-blue-600 rounded-xl text-white shadow-lg ring-4 ring-blue-50">
+                    <label class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Actividad</label>
+                    <textarea id="sip-p" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-20 text-sm font-bold placeholder-blue-300 uppercase" placeholder="ACCIÓN + COSA"></textarea>
                 </div>
-                <div class="p-4 bg-slate-50 rounded-2xl">
-                    <label class="text-[10px] font-black text-slate-400 uppercase">Output</label>
-                    <textarea id="sip-o" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-24 text-sm" placeholder="¿Qué sale?"></textarea>
+                <div class="p-4 bg-slate-50 rounded-xl">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase">¿Qué sale?</label>
+                    <textarea id="sip-o" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-20 text-sm" placeholder="Ej: El acceso ok..."></textarea>
                 </div>
-                <div class="p-4 bg-slate-50 rounded-2xl">
-                    <label class="text-[10px] font-black text-slate-400 uppercase">Customer</label>
-                    <textarea id="sip-c" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-24 text-sm" placeholder="¿Quién lo recibe?"></textarea>
+                <div class="p-4 bg-slate-50 rounded-xl">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase">¿Quién lo recibe?</label>
+                    <textarea id="sip-c" oninput="saveData()" class="w-full bg-transparent mt-2 outline-none h-20 text-sm" placeholder="Ej: El empleado..."></textarea>
                 </div>
             </div>
         </div>
 
-        <button onclick="exportarMD()" class="fixed bottom-8 left-1/2 -translate-x-1/2 md:translate-x-0 md:right-10 bg-green-600 text-white px-12 py-5 rounded-full font-black text-xl shadow-2xl hover:bg-green-700 transition transform hover:scale-110 active:scale-95 flex items-center gap-3">
-            <span>⬇️</span> EXPORTAR ENTREGA .MD
+        <button onclick="descargarMD()" class="fixed bottom-8 right-8 bg-green-600 text-white px-10 py-4 rounded-full font-black shadow-2xl hover:bg-green-700 transition flex items-center gap-2">
+            <span>💾</span> DESCARGAR TRABAJO
         </button>
     </main>
 
     <script>
-        // Lógica de navegación
         function showSection(id) {
             document.querySelectorAll('main').forEach(m => m.classList.add('hidden'));
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-tab'));
@@ -188,93 +173,33 @@
             window.scrollTo(0,0);
         }
 
-        // Marcar tarjetas leídas
-        function marcar(btn) {
-            btn.innerHTML = "✅ ENTENDIDO";
-            btn.classList.replace('bg-blue-600', 'bg-green-100');
-            btn.classList.replace('text-white', 'text-green-700');
-            btn.classList.add('border', 'border-green-200');
-        }
-
-        // Datos dinámicos por Track
-        const trackData = {
-            'ITSM Triage': [
-                { titulo: 'L1: Gestión de Incidencias', desc: 'Flujo para restaurar el servicio lo antes posible.' },
-                { titulo: 'L2: Incidencia Mayor', desc: 'Variante para caídas críticas de infraestructura.' }
-            ],
-            'HR': [
-                { titulo: 'L1: Gestión de Onboarding', desc: 'Proceso de incorporación de nuevos talentos.' },
-                { titulo: 'L2: Onboarding Remoto', desc: 'Variante específica para empleados fuera de oficina.' }
-            ],
-            'Procurement': [
-                { titulo: 'L1: Selección Proveedores', desc: 'Pasos para elegir al mejor partner comercial.' },
-                { titulo: 'L2: Compra Directa', desc: 'Variante rápida para gastos menores bajo límite.' }
-            ]
-        };
-
-        function cambiarTrack() {
-            const t = document.getElementById('track').value;
-            localStorage.setItem('microdsi_track', t);
-            renderFeed();
-        }
-
-        function renderFeed() {
-            const track = document.getElementById('track').value;
-            const container = document.getElementById('feed-container');
-            const data = trackData[track] || trackData['ITSM Triage'];
-            
-            container.innerHTML = `
-                <div class="step-card">
-                    <h3 class="font-black text-blue-600 uppercase text-[10px] tracking-widest mb-1">Definición L1 vs L2</h3>
-                    <h4 class="text-xl font-bold mb-3 italic">No te pierdas en el "Zoom"</h4>
-                    <p class="text-gray-600 text-sm mb-4">Hoy hacemos el inventario en <b>L1</b> (Catálogo). Cuando elijas al ganador, piensa mentalmente en su <b>L2</b> (un caso real, no genérico).</p>
-                    <button onclick="marcar(this)" class="bg-blue-600 text-white px-5 py-2 rounded-lg font-black text-xs transition">HECHO</button>
-                </div>
-                <div class="step-card">
-                    <h3 class="font-black text-blue-600 uppercase text-[10px] tracking-widest mb-1">Ejemplo Track: ${track}</h3>
-                    <h4 class="text-xl font-bold mb-3 italic">${data[0].titulo}</h4>
-                    <p class="text-gray-600 text-sm mb-4">${data[0].desc}</p>
-                    <button onclick="marcar(this)" class="bg-blue-600 text-white px-5 py-2 rounded-lg font-black text-xs transition">HECHO</button>
-                </div>
-                <div class="step-card">
-                    <h3 class="font-black text-blue-600 uppercase text-[10px] tracking-widest mb-1">Test Proceso</h3>
-                    <h4 class="text-xl font-bold mb-3 italic">¿Es realmente un proceso?</h4>
-                    <p class="text-gray-600 text-sm mb-4">Si no tiene un <b>Trigger</b> claro, un <b>Output</b> medible y un <b>Customer</b> que lo reciba, es "humo".</p>
-                    <button onclick="marcar(this)" class="bg-blue-600 text-white px-5 py-2 rounded-lg font-black text-xs transition">HECHO</button>
-                </div>
-            `;
-        }
-
-        // Generar filas de tabla
         const tabla = document.getElementById('tablaLab');
         for (let i = 1; i <= 5; i++) {
             tabla.innerHTML += `
-                <tr class="hover:bg-blue-50/30 transition">
-                    <td class="p-2 border-b"><input type="text" id="row-n-${i}" oninput="saveData()" class="w-full p-3 bg-transparent outline-none font-bold text-sm italic" placeholder="Nombre proceso ${i}..."></td>
-                    <td class="p-2 border-b"><input type="number" id="row-i-${i}" oninput="calc(${i})" class="w-full text-center outline-none bg-transparent" min="1" max="5" placeholder="0"></td>
-                    <td class="p-2 border-b"><input type="number" id="row-e-${i}" oninput="calc(${i})" class="w-full text-center outline-none bg-transparent" min="1" max="5" placeholder="0"></td>
-                    <td class="p-2 border-b"><input type="number" id="row-r-${i}" oninput="calc(${i})" class="w-full text-center outline-none bg-transparent" min="1" max="5" placeholder="0"></td>
-                    <td class="p-2 border-b text-center font-black text-blue-600 text-lg bg-blue-50/50" id="row-s-${i}">0</td>
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-3 border-b"><input type="text" id="row-n-${i}" oninput="saveData()" class="w-full p-2 bg-transparent outline-none italic font-medium" placeholder="Tarea ${i}..."></td>
+                    <td class="p-3 border-b"><input type="number" id="row-i-${i}" oninput="calc(${i})" class="w-full text-center outline-none bg-transparent" min="1" max="5"></td>
+                    <td class="p-3 border-b"><input type="number" id="row-e-${i}" oninput="calc(${i})" class="w-full text-center outline-none bg-transparent" min="1" max="5"></td>
+                    <td class="p-3 border-b"><input type="number" id="row-r-${i}" oninput="calc(${i})" class="w-full text-center outline-none bg-transparent" min="1" max="5"></td>
+                    <td class="p-3 border-b text-center font-black text-blue-600 text-lg" id="row-s-${i}">0</td>
                 </tr>
             `;
         }
 
-        // Cálculo de Score: (Impacto x 2) + Riesgo - Esfuerzo
         function calc(i) {
             const imp = parseInt(document.getElementById(`row-i-${i}`).value) || 0;
-            const esf = parseInt(document.getElementById(`row-e-${i}`).value) || 0;
-            const rie = parseInt(document.getElementById(`row-r-${i}`).value) || 0;
-            const score = (imp * 2) + rie - esf;
+            const dif = parseInt(document.getElementById(`row-e-${i}`).value) || 0;
+            const urg = parseInt(document.getElementById(`row-r-${i}`).value) || 0;
+            const score = (imp * 2) + urg - dif;
             document.getElementById(`row-s-${i}`).innerText = score;
             saveData();
         }
 
-        // Persistencia de datos
         function saveData() {
+            const track = document.getElementById('track').value;
             const fields = ['p-dolores', 'p-rest', 'inv-text', 'sip-s', 'sip-i', 'sip-p', 'sip-o', 'sip-c'];
-            const data = {};
+            const data = { track };
             fields.forEach(f => data[f] = document.getElementById(f).value);
-            
             const tablaData = [];
             for(let i=1; i<=5; i++) {
                 tablaData.push({
@@ -285,18 +210,16 @@
                 });
             }
             data.tabla = tablaData;
-            localStorage.setItem('microdsi_data', JSON.stringify(data));
+            localStorage.setItem('microdsi_limpio', JSON.stringify(data));
         }
 
         function loadData() {
-            const saved = localStorage.getItem('microdsi_data');
-            const track = localStorage.getItem('microdsi_track');
-            if(track) document.getElementById('track').value = track;
-            
+            const saved = localStorage.getItem('microdsi_limpio');
             if(saved) {
                 const data = JSON.parse(saved);
+                document.getElementById('track').value = data.track || 'ITSM';
                 Object.keys(data).forEach(k => {
-                    if(k !== 'tabla') document.getElementById(k).value = data[k];
+                    if(k !== 'tabla' && k !== 'track') document.getElementById(k).value = data[k];
                 });
                 data.tabla.forEach((row, index) => {
                     const i = index + 1;
@@ -307,48 +230,18 @@
                     calc(i);
                 });
             }
-            renderFeed();
         }
 
-        // Exportación a Markdown
-        function exportarMD() {
+        function descargarMD() {
             const track = document.getElementById('track').value;
-            const inv = document.getElementById('inv-text').value;
-            const dolores = document.getElementById('p-dolores').value;
-            
-            let priorTable = "| Proceso | Impacto | Esfuerzo | Riesgo | Score |\n|---|---|---|---|---|\n";
-            for(let i=1; i<=5; i++) {
-                const n = document.getElementById(`row-n-${i}`).value;
-                const sc = document.getElementById(`row-s-${i}`).innerText;
-                if(n) priorTable += `| ${n} | ${document.getElementById(`row-i-${i}`).value} | ${document.getElementById(`row-e-${i}`).value} | ${document.getElementById(`row-r-${i}`).value} | **${sc}** |\n`;
-            }
-
-            const mdContent = `# Entrega Micro-lecciones (M2-S10)\n` +
-                `**Track:** ${track}\n` +
-                `**Fecha:** ${new Date().toLocaleDateString()}\n\n` +
-                `## 0. Diagnóstico (Pistas)\n` +
-                `**Dolores:** ${dolores}\n` +
-                `**Restricciones:** ${document.getElementById('p-rest').value}\n\n` +
-                `## 1. Inventario (L1)\n\`\`\`text\n${inv}\n\`\`\`\n\n` +
-                `## 2. Priorización (Top 5)\n${priorTable}\n\n` +
-                `## 3. SIPOC (Proceso Ganador)\n` +
-                `| Elemento | Descripción |\n|---|---|\n` +
-                `| **Supplier** | ${document.getElementById('sip-s').value} |\n` +
-                `| **Input** | ${document.getElementById('sip-i').value} |\n` +
-                `| **Process** | **${document.getElementById('sip-p').value}** |\n` +
-                `| **Output** | ${document.getElementById('sip-o').value} |\n` +
-                `| **Customer** | ${document.getElementById('sip-c').value} |\n\n` +
-                `--- \nGenerado por MicroDSI Feed v1.0`;
-
-            const blob = new Blob([mdContent], { type: 'text/markdown' });
-            const url = URL.createObjectURL(blob);
+            const md = `# Mi Proyecto de Mejora\nTema: ${track}\n\n## 1. Problemas\n${document.getElementById('p-dolores').value}\n\n## 2. Actividad Elegida\n**${document.getElementById('sip-p').value}**\n\nFicha:\n- Inicia: ${document.getElementById('sip-s').value}\n- Recibe: ${document.getElementById('sip-c').value}`;
+            const blob = new Blob([md], { type: 'text/markdown' });
             const a = document.createElement('a');
-            a.href = url;
-            a.download = `entrega-${track.toLowerCase().replace(/ /g, '-')}.md`;
+            a.href = URL.createObjectURL(blob);
+            a.download = 'mi-trabajo.md';
             a.click();
         }
 
-        // Inicialización
         window.onload = loadData;
         showSection('inicio');
     </script>
